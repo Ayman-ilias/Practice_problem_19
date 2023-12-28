@@ -1,0 +1,46 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<table class="table">
+    <thead>
+      <tr>
+        <th scope="col">ID</th>
+        <th scope="col">Brand Name</th>
+        <th scope="col">Email</th>
+        <th scope="col">Phone Number</th>
+        <th scope="col">Car Name</th>
+        <th scope="col">Car Type</th>
+        <th scope="col">Car Rating</th>
+        <th scope="col">Launch Date</th>
+        <th scope="col">Actions</th>
+      </tr>
+    </thead>
+    
+    <tbody>
+        {% for car in data %}
+        <tr>
+            <th scope="row">{{ car.id }}</th>
+            <td>{{ car.brand_name.brand_name }}</td>
+            <td>{{ car.brand_name.email }}</td>
+            <td>{{ car.brand_name.phone_number }}</td>
+            <td>{{ car.car_name }}</td>
+            <td>{{ car.brand_name.car_type }}</td>
+            <td>{{ car.rating }}</td>
+            <td>{{ car.launch_date }}</td>
+            {% if request.user.is_authenticated %}
+            <td>
+                <a href="{% url 'edit_car' car.id %}"><button  class="btn btn-warning btn-sm">Edit</button></a>
+                <a href="{% url 'delete_car' car.id %}"><button class="btn btn-danger btn-sm">Delete</button></a>
+            </td>
+            {% else %}
+            <td>
+              <a href="{% url 'user_login'%}"><button  class="btn btn-warning">Login to take actions</button></a>
+            </td>
+            {% endif %}
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+{% endblock content %}
